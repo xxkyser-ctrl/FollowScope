@@ -2,6 +2,26 @@
 
 IB Circlio is a local-first Instagram follower/following history tracker. It collects profile lists, stores timestamped snapshots in SQLite, compares complete snapshots, and provides a local result report.
 
+[![Latest release](https://img.shields.io/github/v/release/xxkyser-ctrl/IB_Circlio)](https://github.com/xxkyser-ctrl/IB_Circlio/releases/latest)
+[![Issues](https://img.shields.io/github/issues/xxkyser-ctrl/IB_Circlio)](https://github.com/xxkyser-ctrl/IB_Circlio/issues)
+[![License](https://img.shields.io/github/license/xxkyser-ctrl/IB_Circlio)](https://github.com/xxkyser-ctrl/IB_Circlio)
+
+No cloud backend, no browser storage, no Instagram password, and no Instagram API credentials are required.
+
+## Screenshots
+
+The screenshots below use a redacted demo profile. Usernames and account identifiers are not included.
+
+![IB Circlio extension popup](docs/images/extension-popup.png)
+
+![Instagram profile with follower and following totals](docs/images/instagram-profile-redacted.png)
+
+![GitHub project dashboard](docs/images/github-dashboard.png)
+
+## Download
+
+Download the latest `IB-Circlio-1.0.0-windows.zip` from the [GitHub Releases page](https://github.com/xxkyser-ctrl/IB_Circlio/releases/latest). Extract it, load the extracted folder as an unpacked extension, and double-click `run_server.bat`.
+
 ## Use the portable release (recommended)
 
 Download the `IB Circlio-1.0.0-windows` release folder and keep its files together. It contains the extension files and four packaged Windows executables, so users do not need to install Python or any other runtime.

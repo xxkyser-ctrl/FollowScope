@@ -55,6 +55,7 @@ def main():
         "result.bat",
         "clear_database.bat",
         "README.md",
+        "RELEASE_NOTES.md",
         "SECURITY.md",
         "manifest.json",
         "manifest.firefox.json",
@@ -66,6 +67,8 @@ def main():
     ):
         shutil.copy2(ROOT / filename, RELEASE_DIR / filename)
     shutil.copytree(ROOT / "icons", RELEASE_DIR / "icons")
+    if (ROOT / "docs" / "images").exists():
+        shutil.copytree(ROOT / "docs" / "images", RELEASE_DIR / "docs" / "images")
     print(f"Portable release created at: {RELEASE_DIR}")
 
 
