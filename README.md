@@ -17,7 +17,15 @@ Download the `FollowScope-1.0.0-windows` release folder and keep its files toget
 
 The database and token are stored in `Desktop\Instagram Exporter Data`, not in the browser or the release folder.
 
-## Development mode
+### The only scripts users need
+
+- `run_server.bat`: start FollowScope's private local database service. Leave its window open while collecting.
+- `result.bat`: open the latest totals and follower/following changes. It can optionally create a CSV report.
+- `clear_database.bat`: permanently erase all saved data after a password and confirmation.
+
+Users do not need to open Command Prompt or type commands. The extension itself is loaded once through the browser's **Load unpacked** button; after that, normal use is only opening `run_server.bat`, clicking **Start collection**, and later opening `result.bat`.
+
+## Development mode (maintainers only)
 
 1. Open the browser's extensions page.
 2. Enable Developer mode.
@@ -57,16 +65,43 @@ Collection data is stored by a local Python service in `Desktop\Instagram Export
 
 For a manual start, run `py -3 server.py`. For normal use, double-click [run_server.bat](./run_server.bat). The batch files automatically use packaged `.exe` files when present and only fall back to Python in a source checkout.
 
-## Building the portable release
+## Maintainer commands, in order
 
-This step is for the maintainer; end users do not need to run it.
+End users do not need these commands. They are only for building and publishing a new release.
 
 1. Install Python 3.13 or newer.
-2. Run `py -3 -m pip install -r requirements-build.txt`.
-3. Run `py -3 build_release.py`.
-4. Distribute the generated `release\FollowScope-1.0.0-windows` folder or zip it without changing its internal layout.
+2. Run `py -3 -m pip install -r requirements-build.txt` — installs PyInstaller, which bundles Python into standalone `.exe` files.
+3. Run `py -3 build_release.py` — creates the portable folder under `release\FollowScope-1.0.0-windows`.
+4. Zip that folder without changing its internal layout — this is the file to attach to a GitHub Release.
+5. `git add .` — stages source changes, never generated private data.
+6. `git commit -m "Release FollowScope 1.0.0"` — records the changes locally.
+7. `git push` — publishes the current branch to GitHub.
 
 The build creates `followscope-launcher.exe`, `followscope-server.exe`, `followscope-result.exe`, and `followscope-clear-database.exe`. PyInstaller bundles the Python runtime and standard-library dependencies into those executables.
+
+## Finding FollowScope on GitHub
+
+The repository is:
+
+`https://github.com/xxkyser-ctrl/FollowScope`
+
+Someone who does not know the project name can search GitHub for terms such as:
+
+- `Instagram follower tracker`
+- `Instagram following changes`
+- `SQLite Instagram exporter`
+- `local Instagram follower history`
+- `Chrome extension Instagram followers`
+
+For best discoverability, set the repository description to:
+
+`Privacy-first local Instagram follower and following history tracker with SQLite, change detection, and a Chrome/Edge extension.`
+
+Recommended repository topics:
+
+`instagram`, `instagram-extension`, `follower-tracker`, `following-tracker`, `social-graph`, `sqlite`, `chrome-extension`, `edge-extension`, `python`, `privacy`
+
+To set these on GitHub: open the repository, choose **Settings**, edit the **Description**, and add the topics in the **Topics** field. Users can then find the project by searching those phrases or topics.
 
 The service listens only on `127.0.0.1:8765`, configured by generated `config.js`. Use [config.template.js](./config.template.js) as the publishable template. The database path can be changed with `--db path\to\file.db` (or `INSTAGRAM_DB`). Check that it is running with `GET /api/health`. The authenticated extension API uses `POST /api/collections`, `GET /api/collections/history`, and `DELETE /api/collections?profile=...`.
 
