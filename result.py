@@ -26,7 +26,7 @@ def choose_profile(connection, requested):
 
 def report(connection, profile):
     collection = connection.execute(
-        """SELECT c.id, c.captured_at, c.followers_header_total,
+        """SELECT c.id, c.captured_at, c.complete, c.followers_header_total,
                   c.following_header_total
            FROM collections c JOIN profiles p ON p.id = c.profile_id
            WHERE p.username = ? ORDER BY c.captured_at DESC, c.id DESC LIMIT 1""",
@@ -49,9 +49,10 @@ def report(connection, profile):
 
     print(f"\nProfile: {profile}")
     print(f"Collection time: {collection[1]}")
-    print(f"Followers shown by Instagram: {collection[2] or 'unknown'}")
+    print(f"Status: {'complete' if collection[2] else 'partial (not used as a comparison baseline)'}")
+    print(f"Followers shown by Instagram: {collection[3] or 'unknown'}")
     print(f"Followers collected: {count_members(connection, collection[0], 'followers')}")
-    print(f"Following shown by Instagram: {collection[3] or 'unknown'}")
+    print(f"Following shown by Instagram: {collection[4] or 'unknown'}")
     print(f"Following collected: {count_members(connection, collection[0], 'following')}")
     for relationship in ("followers", "following"):
         print(f"\n{relationship.title()} changes:")

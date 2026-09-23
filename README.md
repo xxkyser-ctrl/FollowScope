@@ -38,7 +38,7 @@ The result utility displays totals and changes and can create an Excel-compatibl
 
 ## Local SQLite backend
 
-Collection data is stored by a local Python service in `instagram.db` in this project folder; no browser storage is used by the backend. Start it before collecting:
+Collection data is stored by a local Python service in `Desktop\Instagram Exporter Data\instagram.db`; no browser storage is used by the backend. Start it before collecting:
 
 For a manual start, run `py -3 server.py`. For normal use, double-click [run_server.bat](./run_server.bat).
 
