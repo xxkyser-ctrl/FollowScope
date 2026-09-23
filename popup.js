@@ -81,7 +81,7 @@ document.getElementById("stop").addEventListener("click", async () => {
   }
 });
 document.getElementById("feedback").addEventListener("click", () => {
-  chrome.tabs.create({ url: "https://github.com/xxkyser-ctrl/FollowScope/issues/new" });
+  chrome.tabs.create({ url: "https://github.com/xxkyser-ctrl/IB_Circlio/issues/new" });
 });
 chrome.runtime.onMessage.addListener((message) => {
   if (message.action === "scanProgress" || message.action === "collectionProgress") {

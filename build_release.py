@@ -1,4 +1,4 @@
-"""Build the portable Windows executables used by the FollowScope release."""
+"""Build the portable Windows executables used by the IB Circlio release."""
 
 import shutil
 import subprocess
@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 BUILD_DIR = ROOT / "build"
 DIST_DIR = ROOT / "dist"
-RELEASE_DIR = ROOT / "release" / "FollowScope-1.0.0-windows"
+RELEASE_DIR = ROOT / "release" / "IB Circlio-1.0.0-windows"
 
 
 def run_pyinstaller(script, name):
@@ -43,10 +43,10 @@ def main():
     DIST_DIR.mkdir(parents=True)
     RELEASE_DIR.mkdir(parents=True)
     for script, name in (
-        ("launcher.py", "followscope-launcher"),
-        ("server.py", "followscope-server"),
-        ("result.py", "followscope-result"),
-        ("clear_database.py", "followscope-clear-database"),
+        ("launcher.py", "ib-circlio-launcher"),
+        ("server.py", "ib-circlio-server"),
+        ("result.py", "ib-circlio-result"),
+        ("clear_database.py", "ib-circlio-clear-database"),
     ):
         run_pyinstaller(script, name)
         shutil.copy2(DIST_DIR / f"{name}.exe", RELEASE_DIR / f"{name}.exe")

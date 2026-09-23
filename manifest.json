@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "FollowScope",
+  "name": "IB Circlio",
   "version": "1.0.0",
   "description": "Track Instagram follower and following changes locally with SQLite.",
   "icons": {
@@ -18,7 +18,7 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "FollowScope",
+    "default_title": "IB Circlio",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/ib-16.png",

@@ -9,12 +9,12 @@ set "CONFIG_PATH=%APP_DIR%config.js"
 
 if not exist "%DATA_DIR%" mkdir "%DATA_DIR%"
 
-if exist "%APP_DIR%followscope-launcher.exe" (
-  "%APP_DIR%followscope-launcher.exe" --data-dir "%DATA_DIR%" --config "%CONFIG_PATH%"
+if exist "%APP_DIR%ib-circlio-launcher.exe" (
+  "%APP_DIR%ib-circlio-launcher.exe" --data-dir "%DATA_DIR%" --config "%CONFIG_PATH%"
 ) else (
   where py >nul 2>&1
   if errorlevel 1 (
-    echo FollowScope is missing its packaged launcher.
+    echo IB Circlio is missing its packaged launcher.
     echo Use a release bundle or install Python 3 for development mode.
     pause
     exit /b 1
@@ -33,8 +33,8 @@ echo Persistent local authentication configured.
 echo No extension reload is needed when restarting this server.
 echo Keep this window open while using the extension.
 echo.
-if exist "%APP_DIR%followscope-server.exe" (
-  "%APP_DIR%followscope-server.exe" --db "%DB_PATH%" --token-file "%TOKEN_PATH%"
+if exist "%APP_DIR%ib-circlio-server.exe" (
+  "%APP_DIR%ib-circlio-server.exe" --db "%DB_PATH%" --token-file "%TOKEN_PATH%"
 ) else (
   py -3 "%APP_DIR%server.py" --db "%DB_PATH%" --token-file "%TOKEN_PATH%"
 )

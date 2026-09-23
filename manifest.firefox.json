@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "FollowScope",
+  "name": "IB Circlio",
   "version": "1.0.0",
   "description": "Privacy-first local Instagram follower and following history tracker with SQLite and change detection.",
   "icons": {
@@ -18,7 +18,7 @@
     "scripts": ["background.js"]
   },
   "action": {
-    "default_title": "FollowScope",
+    "default_title": "IB Circlio",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/ib-16.png",
@@ -36,7 +36,7 @@
   ],
   "browser_specific_settings": {
     "gecko": {
-      "id": "followscope@xxkyser-ctrl.github.io",
+      "id": "ib-circlio@xxkyser-ctrl.github.io",
       "strict_min_version": "121.0"
     }
   }

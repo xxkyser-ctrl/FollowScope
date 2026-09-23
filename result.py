@@ -66,7 +66,7 @@ def report(connection, profile):
                 print("\n".join(grouped[relationship][change]) or "(none)")
 
     if input("\nCreate an Excel-compatible CSV report? [y/N] ").strip().lower() == "y":
-        output = Path.cwd() / f"followscope_{profile}_{datetime.now():%Y%m%d_%H%M%S}.csv"
+        output = Path.cwd() / f"ib-circlio_{profile}_{datetime.now():%Y%m%d_%H%M%S}.csv"
         with output.open("w", newline="", encoding="utf-8-sig") as file:
             writer = csv.writer(file)
             writer.writerow(["profile", "collection_datetime", "relationship", "change", "username"])

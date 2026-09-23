@@ -4,12 +4,12 @@ setlocal
 set "APP_DIR=%~dp0"
 set "DATA_DIR=%USERPROFILE%\Desktop\Instagram Exporter Data"
 
-if exist "%APP_DIR%followscope-clear-database.exe" (
-  "%APP_DIR%followscope-clear-database.exe" --data-dir "%DATA_DIR%"
+if exist "%APP_DIR%ib-circlio-clear-database.exe" (
+  "%APP_DIR%ib-circlio-clear-database.exe" --data-dir "%DATA_DIR%"
 ) else (
   where py >nul 2>&1
   if errorlevel 1 (
-    echo FollowScope database utility is missing.
+    echo IB Circlio database utility is missing.
     pause
     exit /b 1
   )

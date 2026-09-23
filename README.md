@@ -1,10 +1,10 @@
-# FollowScope
+# IB Circlio
 
-FollowScope is a local-first Instagram follower/following history tracker. It collects profile lists, stores timestamped snapshots in SQLite, compares complete snapshots, and provides a local result report.
+IB Circlio is a local-first Instagram follower/following history tracker. It collects profile lists, stores timestamped snapshots in SQLite, compares complete snapshots, and provides a local result report.
 
 ## Use the portable release (recommended)
 
-Download the `FollowScope-1.0.0-windows` release folder and keep its files together. It contains the extension files and four packaged Windows executables, so users do not need to install Python or any other runtime.
+Download the `IB Circlio-1.0.0-windows` release folder and keep its files together. It contains the extension files and four packaged Windows executables, so users do not need to install Python or any other runtime.
 
 1. Open your browser's extensions page:
    - Chrome: `chrome://extensions`
@@ -16,7 +16,7 @@ Download the `FollowScope-1.0.0-windows` release folder and keep its files toget
 3. Choose **Load unpacked** and select the downloaded release folder.
 4. Open Instagram and log in normally.
 5. Double-click `run_server.bat` in the same release folder. Keep its window open while collecting.
-6. Navigate to the Instagram profile and click **Start collection** in FollowScope.
+6. Navigate to the Instagram profile and click **Start collection** in IB Circlio.
 7. Click **Stop** if needed. Everything collected before stopping is saved as a partial snapshot.
 8. Double-click `result.bat` later to view changes or create a CSV report.
 
@@ -24,13 +24,13 @@ The database and token are stored in `Desktop\Instagram Exporter Data`, not in t
 
 ### Supported browsers
 
-FollowScope works in Chromium-based browsers that support Manifest V3, including Chrome, Microsoft Edge, Brave, Opera, Vivaldi, and other Chromium browsers. Load the release folder as an unpacked extension using that browser's extensions page.
+IB Circlio works in Chromium-based browsers that support Manifest V3, including Chrome, Microsoft Edge, Brave, Opera, Vivaldi, and other Chromium browsers. Load the release folder as an unpacked extension using that browser's extensions page.
 
 Firefox uses a different Manifest V3 background format. For Firefox, load the same folder but rename `manifest.firefox.json` to `manifest.json` first, or copy the release folder and replace `manifest.json` with `manifest.firefox.json`. Do not use both manifest files at the same time. Firefox still needs the same local `run_server.bat`; the database remains on the PC and is never stored in browser storage.
 
 ### The only scripts users need
 
-- `run_server.bat`: start FollowScope's private local database service. Leave its window open while collecting.
+- `run_server.bat`: start IB Circlio's private local database service. Leave its window open while collecting.
 - `result.bat`: open the latest totals and follower/following changes. It can optionally create a CSV report.
 - `clear_database.bat`: permanently erase all saved data after a password and confirmation.
 
@@ -82,19 +82,19 @@ End users do not need these commands. They are only for building and publishing 
 
 1. Install Python 3.13 or newer.
 2. Run `py -3 -m pip install -r requirements-build.txt` — installs PyInstaller, which bundles Python into standalone `.exe` files.
-3. Run `py -3 build_release.py` — creates the portable folder under `release\FollowScope-1.0.0-windows`.
+3. Run `py -3 build_release.py` — creates the portable folder under `release\IB Circlio-1.0.0-windows`.
 4. Zip that folder without changing its internal layout — this is the file to attach to a GitHub Release.
 5. `git add .` — stages source changes, never generated private data.
-6. `git commit -m "Release FollowScope 1.0.0"` — records the changes locally.
+6. `git commit -m "Release IB Circlio 1.0.0"` — records the changes locally.
 7. `git push` — publishes the current branch to GitHub.
 
-The build creates `followscope-launcher.exe`, `followscope-server.exe`, `followscope-result.exe`, and `followscope-clear-database.exe`. PyInstaller bundles the Python runtime and standard-library dependencies into those executables.
+The build creates `ib-circlio-launcher.exe`, `ib-circlio-server.exe`, `ib-circlio-result.exe`, and `ib-circlio-clear-database.exe`. PyInstaller bundles the Python runtime and standard-library dependencies into those executables.
 
-## Finding FollowScope on GitHub
+## Finding IB Circlio on GitHub
 
 The repository is:
 
-`https://github.com/xxkyser-ctrl/FollowScope`
+`https://github.com/xxkyser-ctrl/IB_Circlio`
 
 Someone who does not know the project name can search GitHub for terms such as:
 
@@ -106,16 +106,16 @@ Someone who does not know the project name can search GitHub for terms such as:
 
 For best discoverability, set the repository description to:
 
-`Privacy-first local Instagram follower and following history tracker with SQLite, change detection, and a Chrome/Edge extension.`
+`Privacy-first local Instagram follower and following history tracker with SQLite, change detection, and a Chrome, Edge, Firefox, and Chromium browser extension.`
 
 Recommended repository topics:
 
-`instagram`, `instagram-extension`, `follower-tracker`, `following-tracker`, `social-graph`, `sqlite`, `chrome-extension`, `edge-extension`, `python`, `privacy`
+`instagram`, `instagram-extension`, `follower-tracker`, `following-tracker`, `social-graph`, `sqlite`, `chrome-extension`, `edge-extension`, `firefox-extension`, `browser-extension`, `python`, `privacy`
 
 These metadata values should be applied to the GitHub repository itself, not only kept in this README:
 
-- Description: `Privacy-first local Instagram follower and following history tracker with SQLite, change detection, and a Chrome/Edge extension.`
-- Topics: `instagram`, `instagram-extension`, `follower-tracker`, `following-tracker`, `social-graph`, `sqlite`, `chrome-extension`, `edge-extension`, `python`, `privacy`
+- Description: `Privacy-first local Instagram follower and following history tracker with SQLite, change detection, and a Chrome, Edge, Firefox, and Chromium browser extension.`
+- Topics: `instagram`, `instagram-extension`, `follower-tracker`, `following-tracker`, `social-graph`, `sqlite`, `chrome-extension`, `edge-extension`, `firefox-extension`, `browser-extension`, `python`, `privacy`
 
 To set these on GitHub: open the repository, choose **Settings**, edit the **Description**, and add the topics in the **Topics** field. Users can then find the project by searching those phrases or topics.
 
@@ -139,7 +139,7 @@ The extension never asks for credentials, reads cookies, calls Instagram APIs, o
 
 ## Suggested project names
 
-- **FollowScope** (recommended)
+- **IB Circlio** (recommended)
 - **SocialPulse**
 - **CircleTrack**
 - **FollowLedger**
