@@ -10,3 +10,6 @@ dist/
 release/
 *.zip
 clear-password.txt
+
+__pycache__/
+*.pyc
