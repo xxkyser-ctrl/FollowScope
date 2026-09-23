@@ -9,15 +9,18 @@ set "CONFIG_PATH=%APP_DIR%config.js"
 
 if not exist "%DATA_DIR%" mkdir "%DATA_DIR%"
 
-where py >nul 2>&1
-if errorlevel 1 (
-  echo Python 3 was not found.
-  echo Install Python 3 from https://www.python.org/downloads/
-  pause
-  exit /b 1
+if exist "%APP_DIR%followscope-launcher.exe" (
+  "%APP_DIR%followscope-launcher.exe" --data-dir "%DATA_DIR%" --config "%CONFIG_PATH%"
+) else (
+  where py >nul 2>&1
+  if errorlevel 1 (
+    echo FollowScope is missing its packaged launcher.
+    echo Use a release bundle or install Python 3 for development mode.
+    pause
+    exit /b 1
+  )
+  py -3 "%APP_DIR%launcher.py" --data-dir "%DATA_DIR%" --config "%CONFIG_PATH%"
 )
-
-py -3 "%APP_DIR%launcher.py" --data-dir "%DATA_DIR%" --config "%CONFIG_PATH%"
 if errorlevel 1 (
   echo Could not prepare the local configuration.
   pause
@@ -30,7 +33,11 @@ echo Persistent local authentication configured.
 echo No extension reload is needed when restarting this server.
 echo Keep this window open while using the extension.
 echo.
-py -3 "%APP_DIR%server.py" --db "%DB_PATH%" --token-file "%TOKEN_PATH%"
+if exist "%APP_DIR%followscope-server.exe" (
+  "%APP_DIR%followscope-server.exe" --db "%DB_PATH%" --token-file "%TOKEN_PATH%"
+) else (
+  py -3 "%APP_DIR%server.py" --db "%DB_PATH%" --token-file "%TOKEN_PATH%"
+)
 
 echo.
 echo The local database server stopped.

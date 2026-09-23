@@ -2,14 +2,29 @@
 
 FollowScope is a local-first Instagram follower/following history tracker. It collects profile lists, stores timestamped snapshots in SQLite, compares complete snapshots, and provides a local result report.
 
-## Install locally
+## Use the portable release (recommended)
+
+Download the `FollowScope-1.0.0-windows` release folder and keep its files together. It contains the extension files and four packaged Windows executables, so users do not need to install Python or any other runtime.
+
+1. Open Edge or Chrome's extensions page (`edge://extensions` or `chrome://extensions`).
+2. Enable **Developer mode**.
+3. Choose **Load unpacked** and select the downloaded release folder.
+4. Open Instagram and log in normally.
+5. Double-click `run_server.bat` in the same release folder. Keep its window open while collecting.
+6. Navigate to the Instagram profile and click **Start collection** in FollowScope.
+7. Click **Stop** if needed. Everything collected before stopping is saved as a partial snapshot.
+8. Double-click `result.bat` later to view changes or create a CSV report.
+
+The database and token are stored in `Desktop\Instagram Exporter Data`, not in the browser or the release folder.
+
+## Development mode
 
 1. Open the browser's extensions page.
 2. Enable Developer mode.
 3. Choose **Load unpacked**.
 4. Select this `instagram-exporter` folder.
 5. Open Instagram and log in normally.
-6. Double-click [run_server.bat](./run_server.bat). It creates `Desktop\Instagram Exporter Data` automatically, creates a persistent local authentication token once, and starts the SQLite service.
+6. Install Python 3 only for development, then double-click [run_server.bat](./run_server.bat). It creates `Desktop\Instagram Exporter Data` automatically, creates a persistent local authentication token once, and starts the SQLite service.
 7. Navigate to the profile you want to monitor.
 8. Open the extension popup and click **Start collection**. It opens Followers, collects the complete rendered list, closes it, opens Following, and collects that list.
 9. Run **Start collection** again later to create a new complete snapshot. Use **Stop** at any time; collected data is saved as a partial snapshot.
@@ -40,7 +55,18 @@ The result utility displays totals and changes and can create an Excel-compatibl
 
 Collection data is stored by a local Python service in `Desktop\Instagram Exporter Data\instagram.db`; no browser storage is used by the backend. Start it before collecting:
 
-For a manual start, run `py -3 server.py`. For normal use, double-click [run_server.bat](./run_server.bat).
+For a manual start, run `py -3 server.py`. For normal use, double-click [run_server.bat](./run_server.bat). The batch files automatically use packaged `.exe` files when present and only fall back to Python in a source checkout.
+
+## Building the portable release
+
+This step is for the maintainer; end users do not need to run it.
+
+1. Install Python 3.13 or newer.
+2. Run `py -3 -m pip install -r requirements-build.txt`.
+3. Run `py -3 build_release.py`.
+4. Distribute the generated `release\FollowScope-1.0.0-windows` folder or zip it without changing its internal layout.
+
+The build creates `followscope-launcher.exe`, `followscope-server.exe`, `followscope-result.exe`, and `followscope-clear-database.exe`. PyInstaller bundles the Python runtime and standard-library dependencies into those executables.
 
 The service listens only on `127.0.0.1:8765`, configured by generated `config.js`. Use [config.template.js](./config.template.js) as the publishable template. The database path can be changed with `--db path\to\file.db` (or `INSTAGRAM_DB`). Check that it is running with `GET /api/health`. The authenticated extension API uses `POST /api/collections`, `GET /api/collections/history`, and `DELETE /api/collections?profile=...`.
 

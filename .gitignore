@@ -5,4 +5,7 @@ instagram.db
 __pycache__/
 config.js
 *.xlsx
+build/
+dist/
+release/
 clear-password.txt
