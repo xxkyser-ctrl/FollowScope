@@ -56,7 +56,9 @@ async function startCollection() {
     const response = await sendToTab(tab.id, { action: "startCollection" });
     if (!response?.ok) throw new Error(response?.error || "Collection failed.");
     if (response.stopped) {
-      setStatus("Collection stopped.");
+      setStatus(response.error
+        ? `Partial collection saved. ${response.error}`
+        : "Collection stopped. The collected data was saved as a partial snapshot.");
       return;
     }
     const collection = response.collection;

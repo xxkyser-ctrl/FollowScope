@@ -12,11 +12,19 @@ No cloud backend, no browser storage, no Instagram password, and no Instagram AP
 
 The screenshots below use a redacted demo profile. Usernames and account identifiers are not included.
 
-![IB Circlio extension popup](docs/images/extension-popup.png)
+![IB Circlio ready to start](docs/images/demo-start.png)
 
-![Instagram profile with follower and following totals](docs/images/instagram-profile-redacted.png)
+![IB Circlio scanning followers](docs/images/demo-followers.png)
 
-![GitHub project dashboard](docs/images/github-dashboard.png)
+![IB Circlio scanning following](docs/images/demo-following.png)
+
+![IB Circlio finished collection](docs/images/demo-finished.png)
+
+![Local server running](docs/images/demo-server.png)
+
+![IB Circlio timestamped command report](docs/images/demo-result.png)
+
+![Formatted Excel workbook](docs/images/demo-excel.png)
 
 ## Download
 
@@ -38,7 +46,7 @@ Download the `IB Circlio-1.0.0-windows` release folder and keep its files togeth
 5. Double-click `run_server.bat` in the same release folder. Keep its window open while collecting.
 6. Navigate to the Instagram profile and click **Start collection** in IB Circlio.
 7. Click **Stop** if needed. Everything collected before stopping is saved as a partial snapshot.
-8. Double-click `result.bat` later to view changes or create a CSV report.
+8. Double-click `result.bat` later to view changes or create a formatted Excel workbook.
 
 The database and token are stored in `Desktop\Instagram Exporter Data`, not in the browser or the release folder.
 
@@ -51,7 +59,7 @@ Firefox uses a different Manifest V3 background format. For Firefox, load the sa
 ### The only scripts users need
 
 - `run_server.bat`: start IB Circlio's private local database service. Leave its window open while collecting.
-- `result.bat`: open the latest totals and follower/following changes. It can optionally create a CSV report.
+- `result.bat`: open the latest totals and follower/following changes. It can optionally create a formatted `.xlsx` workbook.
 - `clear_database.bat`: permanently erase all saved data after a password and confirmation.
 
 Users do not need to open Command Prompt or type commands. The extension itself is loaded once through the browser's **Load unpacked** button; after that, normal use is only opening `run_server.bat`, clicking **Start collection**, and later opening `result.bat`.
@@ -84,11 +92,11 @@ Only a salted PBKDF2 password hash is stored in `clear-password.txt`; the passwo
 
 ### Viewing results
 
-Double-click [result.bat](./result.bat) after a collection. It shows the latest profile totals, collection datetime, new accounts, and removed accounts. It can optionally print their usernames and create an Excel-compatible UTF-8 CSV report. The extension popup intentionally contains only **Start collection**, **Stop**, status/error messages, and **Feedback / suggestions**. Use `result.bat` for reports and `clear_database.bat` for administration.
+Double-click [result.bat](./result.bat) after a collection. It shows the latest profile totals, collection timestamp, new accounts, and removed accounts. It can optionally print their usernames and create a formatted `.xlsx` workbook with Summary and Changes sheets, colored headers, readable columns, filters, usernames, and timestamps. The extension popup intentionally contains only **Start collection**, **Stop**, status/error messages, and **Feedback / suggestions**. Use `result.bat` for reports and `clear_database.bat` for administration.
 
 ## Report output
 
-The result utility displays totals and changes and can create an Excel-compatible CSV with usernames and timestamps.
+The result utility displays totals and changes with the collection timestamp and can create a formatted `.xlsx` workbook.
 
 ## Local SQLite backend
 

@@ -94,22 +94,39 @@
   }
 
   async function closeDialog() {
-    const dialog = findDialog();
-    if (dialog) {
-      const closeTarget = [...dialog.querySelectorAll(
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      const dialog = findDialog();
+      if (!dialog) return;
+      const dialogRect = dialog.getBoundingClientRect();
+      const candidates = [...dialog.querySelectorAll(
+        'button, [role="button"], [aria-label], img[alt], svg'
+      )].filter((element) => {
+        const rect = element.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0 && rect.top <= dialogRect.top + 90 &&
+          rect.right >= dialogRect.right - 90;
+      });
+      const closeTarget = [...candidates, ...dialog.querySelectorAll(
         'button, [role="button"], [aria-label], img[alt]'
       )].find((element) => {
         const label = `${element.getAttribute("aria-label") || ""} ${element.getAttribute("alt") || ""}`
           .toLowerCase();
-        return label.includes("close") || label.includes("fermer");
+        return label.includes("close") || label.includes("fermer") ||
+          label.includes("cerrar") || label.includes("chiudi");
       });
-      const closeButton = closeTarget?.closest("button, [role=\"button\"]") || closeTarget;
-      if (closeButton instanceof HTMLElement) closeButton.click();
-      dialog.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
-      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
-    }
-    for (let attempt = 0; attempt < 20; attempt += 1) {
-      await sleep(150);
+      const closeButton = closeTarget?.closest("button, [role=\"button\"]") ||
+        closeTarget || candidates[0];
+      if (closeButton instanceof HTMLElement) {
+        closeButton.click();
+        closeButton.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+        closeButton.dispatchEvent(new MouseEvent("mouseup", { bubbles: true }));
+      }
+      for (const target of [dialog, document]) {
+        target.dispatchEvent(new KeyboardEvent("keydown", {
+          key: "Escape", code: "Escape", keyCode: 27, which: 27,
+          bubbles: true, cancelable: true
+        }));
+      }
+      await sleep(400);
       if (!findDialog()) return;
     }
     throw new Error("The previous Instagram list dialog did not close.");
@@ -181,19 +198,28 @@
       followers: headerTotal("followers"),
       following: headerTotal("following")
     }};
-    for (const listType of ["followers", "following"]) {
-      if (state.stopRequested) break;
-      chrome.runtime.sendMessage({ action: "collectionProgress", message: `Opening ${listType}...` });
-      await openList(listType);
-      result[listType] = await scanDialog(listType);
-      await closeDialog();
-      await sleep(500);
-    }
-    if (state.stopRequested) {
+    try {
+      for (const listType of ["followers", "following"]) {
+        if (state.stopRequested) break;
+        chrome.runtime.sendMessage({ action: "collectionProgress", message: `Opening ${listType}...` });
+        await openList(listType);
+        result[listType] = await scanDialog(listType);
+        await closeDialog();
+        await sleep(500);
+      }
+    } catch (error) {
       result.complete = false;
-    } else {
-      result.complete = true;
+      result.error = error.message;
+      if (findDialog()) {
+        try {
+          await closeDialog();
+        } catch {
+          // Keep the partial result even if Instagram leaves the dialog mounted.
+        }
+      }
     }
+    if (state.stopRequested) result.complete = false;
+    if (result.error) result.complete = false;
 
     const saveResponse = await new Promise((resolve, reject) => {
       chrome.runtime.sendMessage({
@@ -215,7 +241,12 @@
         }
       });
     });
-    return { ...result, collection: saveResponse.collection, stopped: !result.complete };
+    return {
+      ...result,
+      collection: saveResponse.collection,
+      stopped: !result.complete,
+      error: result.error || null
+    };
   }
 
   chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
