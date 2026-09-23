@@ -6,7 +6,12 @@ FollowScope is a local-first Instagram follower/following history tracker. It co
 
 Download the `FollowScope-1.0.0-windows` release folder and keep its files together. It contains the extension files and four packaged Windows executables, so users do not need to install Python or any other runtime.
 
-1. Open Edge or Chrome's extensions page (`edge://extensions` or `chrome://extensions`).
+1. Open your browser's extensions page:
+   - Chrome: `chrome://extensions`
+   - Edge: `edge://extensions`
+   - Brave: `brave://extensions`
+   - Opera: `opera://extensions`
+   - Vivaldi: `vivaldi://extensions`
 2. Enable **Developer mode**.
 3. Choose **Load unpacked** and select the downloaded release folder.
 4. Open Instagram and log in normally.
@@ -16,6 +21,12 @@ Download the `FollowScope-1.0.0-windows` release folder and keep its files toget
 8. Double-click `result.bat` later to view changes or create a CSV report.
 
 The database and token are stored in `Desktop\Instagram Exporter Data`, not in the browser or the release folder.
+
+### Supported browsers
+
+FollowScope works in Chromium-based browsers that support Manifest V3, including Chrome, Microsoft Edge, Brave, Opera, Vivaldi, and other Chromium browsers. Load the release folder as an unpacked extension using that browser's extensions page.
+
+Firefox uses a different Manifest V3 background format. For Firefox, load the same folder but rename `manifest.firefox.json` to `manifest.json` first, or copy the release folder and replace `manifest.json` with `manifest.firefox.json`. Do not use both manifest files at the same time. Firefox still needs the same local `run_server.bat`; the database remains on the PC and is never stored in browser storage.
 
 ### The only scripts users need
 
@@ -100,6 +111,11 @@ For best discoverability, set the repository description to:
 Recommended repository topics:
 
 `instagram`, `instagram-extension`, `follower-tracker`, `following-tracker`, `social-graph`, `sqlite`, `chrome-extension`, `edge-extension`, `python`, `privacy`
+
+These metadata values should be applied to the GitHub repository itself, not only kept in this README:
+
+- Description: `Privacy-first local Instagram follower and following history tracker with SQLite, change detection, and a Chrome/Edge extension.`
+- Topics: `instagram`, `instagram-extension`, `follower-tracker`, `following-tracker`, `social-graph`, `sqlite`, `chrome-extension`, `edge-extension`, `python`, `privacy`
 
 To set these on GitHub: open the repository, choose **Settings**, edit the **Description**, and add the topics in the **Topics** field. Users can then find the project by searching those phrases or topics.
 

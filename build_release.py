@@ -57,6 +57,7 @@ def main():
         "README.md",
         "SECURITY.md",
         "manifest.json",
+        "manifest.firefox.json",
         "background.js",
         "content.js",
         "popup.html",
