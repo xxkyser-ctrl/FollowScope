@@ -8,4 +8,5 @@ config.js
 build/
 dist/
 release/
+*.zip
 clear-password.txt
