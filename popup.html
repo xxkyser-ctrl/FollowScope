@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FollowScope</title>
+  <style>
+    :root { color-scheme: light; font-family: Arial, sans-serif; }
+    body { width: 300px; margin: 0; padding: 18px; color: #202124; background: #fff; }
+    h1 { margin: 0 0 18px; font-size: 20px; }
+    button { width: 100%; margin: 4px 0; padding: 9px 10px; border: 1px solid #dadce0; border-radius: 6px; background: #f8f9fa; cursor: pointer; }
+    #start { color: #fff; background: #0095f6; border-color: #0095f6; font-weight: 600; }
+    button:hover { background: #eef0f2; }
+    button:disabled { opacity: .5; cursor: default; }
+    #stop { background: #fff1f0; border-color: #f0aca7; }
+    #status { min-height: 36px; padding: 10px; border-radius: 6px; background: #f1f3f4; font-size: 12px; line-height: 1.45; }
+    footer { margin-top: 14px; color: #6b7280; font-size: 11px; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>FollowScope</h1>
+  <button id="start" type="button">Start collection</button>
+  <div id="status">Ready to collect the current profile.</div>
+  <button id="stop" type="button" disabled>Stop</button>
+  <button id="feedback" type="button">Feedback / suggestions</button>
+  <footer>Developed by Ilyas IB</footer>
+  <script src="popup.js"></script>
+</body>
+</html>
